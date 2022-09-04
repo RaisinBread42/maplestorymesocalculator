@@ -11,7 +11,7 @@ export default class RunningTotal extends React.Component {
               Running Total
             </Typography>
             <Typography variant="h3" gutterBottom align="center">
-              <NumberFormat value={this.props.checked.reduce((accumulator, current) => accumulator + current.mesos, 0)} displayType={'text'} thousandSeparator={true}/> mesos
+              <NumberFormat value={this.props.checkLists.reduce((accumulator, current) => accumulator + current.mesos, 0)} displayType={'text'} thousandSeparator={true}/> mesos
             </Typography>
           </div>
        );
