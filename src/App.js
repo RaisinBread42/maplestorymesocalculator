@@ -1,16 +1,22 @@
 import * as React from 'react';
+import './App.css';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid2 version 2
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import NumberFormat from 'react-number-format';
 import AppMenuBar from './AppMenuBar';
+import Collapse from '@mui/material/Collapse';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+// components
 import BossChecklist from './components/bosschecklist';
 import RunningTotal from './components/runningtotal';
 
 /*main*/
 export default class App extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       checked: []
@@ -18,36 +24,60 @@ export default class App extends React.Component {
     this.setState = this.setState.bind(this);
   }
 
-  render(){
-    return(
-    <div>
-      <AppMenuBar />
-      
-      {/* page header */}
-      <Grid2 container spacing={2}>
-        <Grid2 xs={3}></Grid2>
-        <Grid2 xs={6} display="flex" justifyContent="center" alignItems="center">
-          <Typography variant="h3" gutterBottom align="center">
-            Bossing
-          </Typography>
-        </Grid2>
-        <Grid2 xs={3}></Grid2>
-      </Grid2>
 
-      {/* main */}
-      <Grid2 container spacing={2}>
+  render() {
+    return (
+      <div className='app-background'>
+        <AppMenuBar />
 
-        {/* boss list */}
-        <Grid2 xs={6} display="flex" justifyContent="center" alignItems="center">
-          <BossChecklist checked={this.state.checked} onUpdate={this.setState}/>
+        {/* page header */}
+        <Grid2 container spacing={2}>
+          <Grid2 xs={3}></Grid2>
+          <Grid2 xs={6} display="flex" justifyContent="center" alignItems="center">
+            <Typography variant="h3" gutterBottom align="center">
+              Bossing
+            </Typography>
+          </Grid2>
+          <Grid2 xs={3}></Grid2>
         </Grid2>
 
-        {/* running total */}
-        <Grid2 xs={6}>
-          <RunningTotal checked={this.state.checked}/>
-        </Grid2>
+        {/* main */}
+        <Grid2 container spacing={2} minHeight={'100%'}>
 
-      </Grid2>
-    </div>);
+          {/* boss list */}
+          <Grid2 xs={6} display="flex" justifyContent="center" alignItems="flex-start">
+            <Accordion sx={{ width: '90%' }} expanded={true}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="checklist-header"
+                sx={{ alignItems: 'center' }}
+              >
+                <Typography>Boss Checklist</Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ maxHeight: '500px', overflow: 'auto'}}>
+                <BossChecklist checked={this.state.checked} onUpdate={this.setState} />
+              </AccordionDetails>
+            </Accordion>
+          </Grid2>
+
+          {/* running total */}
+          <Grid2 xs={6} display="flex" justifyContent="center" alignItems="flex-start">
+          <Accordion sx={{ width: '90%' }} expanded={true}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="totals-header"
+              >
+                <Typography>Totals</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <RunningTotal checked={this.state.checked} />
+              </AccordionDetails>
+            </Accordion>
+          </Grid2>
+
+        </Grid2>
+      </div>);
   }
 }

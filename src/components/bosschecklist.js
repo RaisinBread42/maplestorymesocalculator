@@ -32,7 +32,6 @@ export default class BossChecklist extends React.Component {
 
     render() {
         return(
-        <Paper elevation={3} sx={{ minWidth: "100%" }}>
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {Bosses.map((boss) => {
                     const labelId = `checkbox-list-label-${boss.name}-${boss.difficulty}`;
@@ -63,7 +62,6 @@ export default class BossChecklist extends React.Component {
                         </ListItem>
                     );
                 })}
-            </List>
-        </Paper>);
+            </List>);
     }
 }
